@@ -1,10 +1,6 @@
 package seedu.budgetbaby.logic.statistics;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
@@ -28,6 +24,7 @@ public class Statistics {
     }
 
     private List<Month> getPastMonths() {
+        // if month does not exist, add month using model.addMonth method
         List<Month> monthList = new ArrayList<Month>(model.getFullMonthList());
         monthList = monthList.stream()
                 .filter(month -> month.getMonth().isBefore(this.monthList.get(0).getMonth().plusMonths(1))
@@ -72,7 +69,8 @@ public class Statistics {
         Collections.sort(list, new Comparator<CategoryStatistics>() {
             @Override
             public int compare(CategoryStatistics cs1, CategoryStatistics cs2) {
-                return cs1.getCategory().getCategory().compareTo(cs2.getCategory().getCategory());
+                return cs1.getCategory().getCategory().toLowerCase()
+                        .compareTo(cs2.getCategory().getCategory().toLowerCase());
             }
         });
         return list;
